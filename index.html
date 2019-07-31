@@ -21,26 +21,26 @@
 	</div>
 
 	<div class="row">
-		<div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12 ocultar">
+		<div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12">
 			<form class="form-horizontal" action="" method="POST">
 				<div class="form-group">
 					<h3 class="col-sm-offset-2 col-sm-8 text-center">
 						Formulario de Registro de Usuarios</h3>
 				</div>
-				<input type="hidden" id="idusuario" name="idusuario" value="0">
+				<input type="hidden" id="idpersona" name="idusuario" value="0">
 				<input type="hidden" id="opcion" name="opcion" value="registrar">
 				<div class="form-group">
-					<label for="nombre" class="col-sm-2 control-label">Nombres</label>
+					<label for="nombre" class="col-sm-2 control-label">Nombre</label>
 					<div class="col-sm-8"><input id="nombre" name="nombre" type="text" class="form-control" autofocus>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="apellidos" class="col-sm-2 control-label">Apellidos</label>
-					<div class="col-sm-8"><input id="apellidos" name="apellidos" type="text" class="form-control"></div>
+					<label for="apellido" class="col-sm-2 control-label">Apellido</label>
+					<div class="col-sm-8"><input id="apellido" name="apellidos" type="text" class="form-control"></div>
 				</div>
 				<div class="form-group">
-					<label for="apellidos" class="col-sm-2 control-label">Dni</label>
-					<div class="col-sm-8"><input id="dni" name="dni" type="text" class="form-control" maxlength="8">
+					<label for="cedula" class="col-sm-2 control-label">Cedula</label>
+					<div class="col-sm-8"><input id="cedula" name="dni" type="text" class="form-control" maxlength="8">
 					</div>
 				</div>
 				<div class="form-group">
@@ -123,19 +123,44 @@
 			listar();
 		});
 
+		$("#btn_listar").on("click", function () {
+			listar();
+		})
+
 		var listar = function () {
-				var table = $("#dt_cliente").DataTable({
-					"ajax":{
-						"method": "POST",
-						"url": "db/querys.php",
+			var table = $("#dt_cliente").DataTable({
+				"destroy": "true",
+				"ajax": {
+					"method": "POST",
+					"url": "db/querys.php",
+				},
+				"columns": [{
+						"data": "nombre"
 					},
-					"columns":[
-						{"data":"nombre"},
-						{"data":"apellido"},
-						{"data":"cedula"}
-					]
-				})
-			}
+					{
+						"data": "apellido"
+					},
+					{
+						"data": "cedula"
+					},
+					{
+						"defaultContent": "<button type='button' class='editar btn btn-primary'><i class='fa fa-pencil-square-o'></i></button> <button type='button' class='eliminar btn btn-danger' data-toggle='modal' data-target='#modalEliminar'><i class='fa fa-trash-o'></i></button>"
+
+					}
+				],
+			});
+			obtenerDataEditar("#dt_cliente tbody", table);
+		}
+
+		var obtenerDataEditar = function (tbody, table) {
+			$(tbody).on("click","button.editar", function () {
+				var data = table.row($(this).parents("tr")).data(),
+					id = $("#idpersona").val(data.id),
+					nombre = $("#nombre").val(data.nombre),
+					apellido = $("#apellido").val(data.apellido),
+					cedula = $("#cedula").val(data.cedula);
+			});
+		}
 	</script>
 </body>
 
