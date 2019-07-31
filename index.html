@@ -67,7 +67,7 @@
 						<tr>
 							<th>Nombre</th>
 							<th>Apellidos</th>
-							<th>Dni</th>
+							<th>Cedula</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -120,8 +120,22 @@
 
 	<script>
 		$(document).on("ready", function () {
-
+			listar();
 		});
+
+		var listar = function () {
+				var table = $("#dt_cliente").DataTable({
+					"ajax":{
+						"method": "POST",
+						"url": "db/querys.php",
+					},
+					"columns":[
+						{"data":"nombre"},
+						{"data":"apellido"},
+						{"data":"cedula"}
+					]
+				})
+			}
 	</script>
 </body>
 
