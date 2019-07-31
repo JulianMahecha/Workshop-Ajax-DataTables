@@ -1,5 +1,5 @@
 <?php
-$server = "localhost";
+$server = "127.0.0.1";
 $user = "root";
 $db = "datatables_ws";
 
