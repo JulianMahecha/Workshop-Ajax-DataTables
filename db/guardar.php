@@ -1,45 +1,49 @@
 <?php
 
-include(conection.php);
+include("conection.php");
 
+$opcion = $_POST["opcion"];
 $id = $_POST["id"];
-$nombre = $_POST["nombre"];
-$apellido = $_POST["apellido"];
-$cedula = $_POST["cedula"];
-$opcion = $_POST["cedula"];
 $informacion = [];
+
+if (!($opcion == "eliminar")) {
+
+    $nombre = $_POST["nombre"];
+    $apellido = $_POST["apellido"];
+    $cedula = $_POST["cedula"];
+}
+
 
 /* Menu */
 
-if ($opcion = 'modificar') {
-    modificar($nombre, $apellido, $cedula, $id, $conexion);
-}else if ($opcion = 'eliminar'){
-    eliminar($id, $conexion);
+if ($opcion == 'modificar') {
+    modificar($nombre, $apellido, $cedula, $id, $conection);
+}else if ($opcion == 'eliminar'){
+    eliminar($id, $conection);
 }else{
     /* Aun no lo he programado :v */
 }
 
-function modificar($nombre, $apellido, $cedula, $id, $conexion){
-    $query = "UPDATE persona SET
+function modificar($nombre, $apellido, $cedula, $id, $conection){
+    $query = "UPDATE personas SET
             nombre = '$nombre',
             apellido = '$apellido',
-            cedula = '$cedula',
+            cedula = '$cedula'
             WHERE id = $id
-    ";
-
-    $result = mysqli_query($conexion, $query);
+    ";  
+    $result = mysqli_query($conection, $query);
     verificar_resultado($result);
-    mysqli_close($conexion);
+    mysqli_close($conection);
 }
 
-function eliminar($id, $conexion){
-    $query = "DELETE FROM persona
+function eliminar($id, $conection){
+    $query = "DELETE FROM personas
             WHERE id = $id
     ";
 
-    $result = mysqli_query($conexion, $query);
+    $result = mysqli_query($conection, $query);
     verificar_resultado($result);
-    mysqli_close($conexion);
+    mysqli_close($conection);
 }
 
 function verificar_resultado($resultado){
