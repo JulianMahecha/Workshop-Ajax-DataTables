@@ -133,7 +133,6 @@
 			$("form").on("submit", function (e) {
 				e.preventDefault();
 				var frm = $(this).serialize();
-				
 				$.ajax({
 					method :"POST",
 					url: "db/guardar.php",

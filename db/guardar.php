@@ -25,7 +25,7 @@ if ($opcion == 'modificar') {
 }
 
 function modificar($nombre, $apellido, $cedula, $id, $conection){
-    $query = "UPDATE personas SET
+    $query = "UPDATE persona SET
             nombre = '$nombre',
             apellido = '$apellido',
             cedula = '$cedula'
@@ -37,7 +37,7 @@ function modificar($nombre, $apellido, $cedula, $id, $conection){
 }
 
 function eliminar($id, $conection){
-    $query = "DELETE FROM personas
+    $query = "DELETE FROM persona
             WHERE id = $id
     ";
 
